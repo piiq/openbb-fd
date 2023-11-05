@@ -1,0 +1,35 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.env
+.venv
+venv*/
+venv
+.vscode
+*.ipynb
+env/
+venv/
+.python-version
+.mypy_cache
+.ruff_cache
+.pytest_cache
+iframe_figures/
+.idea
+.coverage
+.scannerwork
+**/.ipynb_checkpoints
+*.swp
+*.http
+.coverage.*
+.dccache
+*rome.json
+**/node_modules/*
+
+# cache
+cache/
+
+# CA certificates
+*.pem
+
+# Platform auto generated files
+openbb_fd/package/*
