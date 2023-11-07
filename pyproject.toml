@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "openbb-fd"
+version = "0.1.0"
+description = "Theo's opinionated integration of Jeroen's Finance Database with OpenBB"
+authors = ["piiq <piiq@tinag.ru>"]
+readme = "README.md"
+packages = [{ include = "openbb_fd" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+openbb-core = "^0.1.0a5"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.5.0"
+pylint = "^3.0.2"
+pydocstyle = "^6.3.0"
+mypy = "^1.6.1"
+ruff = "^0.1.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins."openbb_core_extension"]
+fd = "openbb_fd.router:router"
+
+[tool.poetry.plugins."openbb_provider_extension"]
+fd = "openbb_fd:fd_provider"
+
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+priority = "supplemental"
+
+[tool.ruff]
+line-length = 122
+target-version = "py38"
