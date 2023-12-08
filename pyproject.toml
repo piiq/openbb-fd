@@ -7,15 +7,12 @@ readme = "README.md"
 packages = [{ include = "openbb_fd" }]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-openbb-core = "^0.1.0a5"
+python = "^3.8,<3.12"
+openbb-core = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.5.0"
-pylint = "^3.0.2"
-pydocstyle = "^6.3.0"
-mypy = "^1.6.1"
-ruff = "^0.1.4"
+openbb-devtools = "^1.0.0"
+openbb = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core"]
