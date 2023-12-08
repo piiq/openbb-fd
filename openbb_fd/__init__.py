@@ -1,5 +1,5 @@
 """Finance Database Provider module."""
-from openbb_provider.abstract.provider import Provider
+from openbb_core.provider.abstract.provider import Provider
 
 from openbb_fd.models.etf_search import FDEtfSearchFetcher
 from openbb_fd.models.equity_search import FDEquitySearchFetcher
@@ -11,7 +11,7 @@ fd_provider = Provider(
     description="A community-managed database of 300.000+ tickers fully categorized.",
     fetcher_dict={
         "EtfSearch": FDEtfSearchFetcher,
-        "StockSearch": FDEquitySearchFetcher,
+        "EquitySearch": FDEquitySearchFetcher,
         "CryptoSearch": FDCryptoSearchFetcher,
     },
 )

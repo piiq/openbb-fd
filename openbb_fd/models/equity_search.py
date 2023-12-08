@@ -2,21 +2,20 @@
 
 from typing import Any, Dict, List, Optional
 
-# import pandas as pd
-from openbb_provider.abstract.fetcher import Fetcher
-from openbb_provider.standard_models.stock_search import (
-    StockSearchData,
-    StockSearchQueryParams,
+from openbb_core.provider.abstract.fetcher import Fetcher
+from openbb_core.provider.standard_models.equity_search import (
+    EquitySearchData,
+    EquitySearchQueryParams,
 )
 from pydantic import Field
 from ..utils.helpers import get_dataset
 
 
-class FDEquitySearchQueryParams(StockSearchQueryParams):
+class FDEquitySearchQueryParams(EquitySearchQueryParams):
     """FD Equity Search Query Params."""
 
 
-class FDEquitySearchData(StockSearchData):
+class FDEquitySearchData(EquitySearchData):
     """FD Equity Search Data."""
 
     description: Optional[str] = Field(
