@@ -57,8 +57,8 @@ class FDCryptoSearchFetcher(
         return FDCryptoSearchQueryParams(**params)
 
     @staticmethod
-    def extract_data(
-        query: FDCryptoSearchQueryParams,  # pylint: disable=unused-argument
+    def extract_data(  # pylint: disable=unused-argument
+        query: FDCryptoSearchQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
@@ -84,7 +84,9 @@ class FDCryptoSearchFetcher(
 
     @staticmethod
     def transform_data(
-        query: FDCryptoSearchQueryParams, data: List[Dict], **kwargs: Any
+        query: FDCryptoSearchQueryParams,  # pylint: disable=unused-argument
+        data: List[Dict],
+        **kwargs: Any,
     ) -> List[FDCryptoSearchData]:
         """Return the transformed data."""
         return [FDCryptoSearchData.model_validate(d) for d in data]
