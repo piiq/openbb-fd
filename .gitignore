@@ -33,3 +33,4 @@ cache/
 
 # Platform auto generated files
 openbb_fd/package/*
+openbb_fd/data
