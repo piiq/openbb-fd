@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "openbb-fd"
-version = "0.1.0"
-description = "Theo's opinionated integration of Jeroen's Finance Database with OpenBB"
+version = "1.0.0"
+description = "Integration of Jeroen Bouma's Finance Database with OpenBB"
 authors = ["piiq <piiq@tinag.ru>"]
 readme = "README.md"
 packages = [{ include = "openbb_fd" }]
