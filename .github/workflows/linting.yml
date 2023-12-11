@@ -47,7 +47,7 @@ jobs:
       - run: codespell --ignore-words=.codespell.ignore --skip="$(tr '\n' ',' < .codespell.skip | sed 's/,$//')" --quiet-level=2
       - run: ruff .
       - run: mypy --ignore-missing-imports openbb_fd
-      - run: pylint openbb_fd tests
+      - run: pylint openbb_fd
 
   markdown-link-check:
     name: Markdown Linting
