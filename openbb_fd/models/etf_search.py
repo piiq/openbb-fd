@@ -63,8 +63,8 @@ class FDEtfSearchFetcher(
         return FDEtfSearchQueryParams(**params)
 
     @staticmethod
-    def extract_data(
-        query: FDEtfSearchQueryParams,  # pylint: disable=unused-argument
+    def extract_data(  # pylint: disable=unused-argument
+        query: FDEtfSearchQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
@@ -91,7 +91,7 @@ class FDEtfSearchFetcher(
         return etfs.to_dict("records")
 
     @staticmethod
-    def transform_data(
+    def transform_data(  # pylint: disable=unused-argument
         query: FDEtfSearchQueryParams, data: List[Dict], **kwargs: Any
     ) -> List[FDEtfSearchData]:
         """Return the transformed data."""

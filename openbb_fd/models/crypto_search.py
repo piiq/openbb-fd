@@ -83,8 +83,8 @@ class FDCryptoSearchFetcher(
         return cryptos.to_dict("records")
 
     @staticmethod
-    def transform_data(
-        query: FDCryptoSearchQueryParams,  # pylint: disable=unused-argument
+    def transform_data(  # pylint: disable=unused-argument
+        query: FDCryptoSearchQueryParams,
         data: List[Dict],
         **kwargs: Any,
     ) -> List[FDCryptoSearchData]:

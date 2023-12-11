@@ -123,8 +123,8 @@ class FDEquitySearchFetcher(
         return FDEquitySearchQueryParams(**params)
 
     @staticmethod
-    def extract_data(
-        query: FDEquitySearchQueryParams,  # pylint: disable=unused-argument
+    def extract_data(  # pylint: disable=unused-argument
+        query: FDEquitySearchQueryParams,
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> List[Dict]:
@@ -162,7 +162,7 @@ class FDEquitySearchFetcher(
         return equities.to_dict("records")
 
     @staticmethod
-    def transform_data(
+    def transform_data(  # pylint: disable=unused-argument
         query: FDEquitySearchQueryParams, data: List[Dict], **kwargs: Any
     ) -> List[FDEquitySearchData]:
         """Return the transformed data."""
