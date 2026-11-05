@@ -6,21 +6,57 @@ Finance Database by Jeroen Bouma offers an extensive collection of over 300,000 
 
 This extension integrates the Finance Database datasets into OpenBB. It enhances the capabilities of OpenBB’s equity, crypto, and ETF search functionalities. This integration adds capabilities to search through a broad spectrum of financial instruments.
 
+## Requirements
+
+- Python 3.12+
+- OpenBB Core 2.0.1+
+- `uv` for local development
+
 ## Installation
 
-To install this extension, you can use pip:
+Add the provider and the asset routers used by the examples to your uv project:
 
 ```bash
-pip install openbb-fd
+uv add openbb-fd openbb-equity openbb-etf openbb-crypto
 ```
 
 Alternatively, for the latest version directly from the repository:
 
 ```bash
-pip install git+https://github.com/piiq/openbb-fd.git
+uv add git+https://github.com/piiq/openbb-fd.git
+```
+
+Rebuild the generated interface after changing installed extensions:
+
+```bash
+uv run openbb-build
+```
+
+## Local development
+
+```bash
+uv sync --locked
+uv run openbb-build
+uv run pytest
+uv run ruff check .
+uv run ty check
+uv run rumdl check README.md
+```
+
+The development group installs the equity, ETF, and crypto routers for the generated `obb` interface, plus the Platform API for HTTP integration tests. OpenBB 5 installs these asset routers through its optional `routers` extra; a provider installation alone does not install them.
+
+Run the API and the live integration tests in separate terminals:
+
+```bash
+uv run openbb-api --host 127.0.0.1 --port 8000
+uv run pytest integration
 ```
 
 ## Usage
+
+```python
+from openbb import obb
+```
 
 Here are some command examples to demonstrate the usage of this integration:
 

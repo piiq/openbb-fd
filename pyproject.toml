@@ -1,36 +1,49 @@
-[tool.poetry]
+[project]
 name = "openbb-fd"
-version = "1.0.0"
+version = "1.2.0"
 description = "Integration of Jeroen Bouma's Finance Database with OpenBB"
-authors = ["piiq <piiq@tinag.ru>"]
+authors = [{ name = "piiq", email = "piiq@tinag.ru" }]
 readme = "README.md"
-packages = [{ include = "openbb_fd" }]
+requires-python = ">=3.12,<4"
+dependencies = [
+  "openbb-core>=2.0.1",
+  "pandas>=1.5.3",
+  "pydantic>=2.12.3,<3.0.0",
+  "requests>=2.34.2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.8,<3.12"
-openbb-core = "^1.0.1"
-
-[tool.poetry.group.dev.dependencies]
-openbb-devtools = "^1.0.0"
-openbb = "^4.0.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.plugins."openbb_provider_extension"]
+[project.entry-points."openbb_provider_extension"]
 fd = "openbb_fd:fd_provider"
 
+[dependency-groups]
+dev = [
+  "hatchling>=1.27",
+  "httpx>=0.28",
+  "openbb-crypto>=2.0.0",
+  "openbb-equity>=2.0.0",
+  "openbb-etf>=2.0.0",
+  "openbb-platform-api>=2.0.1",
+  "pytest>=8.3",
+  "ruff>=0.15",
+  "rumdl>=0.1.76",
+  "ty>=0.0.18",
+]
 
-[[tool.poetry.source]]
-name = "PyPI"
-priority = "primary"
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
 
-[[tool.poetry.source]]
-name = "testpypi"
-url = "https://test.pypi.org/simple/"
-priority = "supplemental"
+[tool.hatch.build.targets.wheel]
+packages = ["openbb_fd"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+markers = ["integration: requires live Finance Database data and, for HTTP tests, a running OpenBB API"]
 
 [tool.ruff]
 line-length = 122
-target-version = "py38"
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

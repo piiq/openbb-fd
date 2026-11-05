@@ -34,3 +34,6 @@ cache/
 # Platform auto generated files
 openbb_fd/package/*
 openbb_fd/data
+
+# Package build artifacts
+dist/

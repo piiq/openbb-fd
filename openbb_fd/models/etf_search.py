@@ -83,12 +83,7 @@ class FDEtfSearchFetcher(
                 | etfs["exchange"].str.contains(query.query, case=False)
                 | etfs["market"].str.contains(query.query, case=False)
             ]
-        for col in etfs:
-            if etfs[col].dtype in ("int", "float"):
-                etfs[col] = etfs[col].fillna(0)
-            elif etfs[col].dtype == "string":
-                etfs[col] = etfs[col].fillna("")
-        return etfs.to_dict("records")
+        return etfs.astype(object).where(etfs.notna(), None).to_dict("records")
 
     @staticmethod
     def transform_data(  # pylint: disable=unused-argument
