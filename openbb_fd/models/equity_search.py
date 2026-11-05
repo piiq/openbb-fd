@@ -131,7 +131,9 @@ class FDEquitySearchFetcher(
         """Return the raw data from the FD endpoint."""
         equities = get_dataset("equities")
 
-        if query.query:
+        if query.query and query.is_symbol:
+            equities = equities[equities["symbol"].str.contains(query.query, case=False, na=False)]
+        elif query.query:
             equities = equities[
                 equities["symbol"].str.contains(query.query, case=False)
                 | equities["name"].str.contains(query.query, case=False)
@@ -154,12 +156,7 @@ class FDEquitySearchFetcher(
                 | equities["composite_figi"].str.contains(query.query, case=False)
                 | equities["shareclass_figi"].str.contains(query.query, case=False)
             ]
-        for col in equities:
-            if equities[col].dtype in ("int", "float"):
-                equities[col] = equities[col].fillna(0)
-            elif equities[col].dtype == "string":
-                equities[col] = equities[col].fillna("")
-        return equities.to_dict("records")
+        return equities.astype(object).where(equities.notna(), None).to_dict("records")
 
     @staticmethod
     def transform_data(  # pylint: disable=unused-argument

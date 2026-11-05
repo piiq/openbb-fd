@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
@@ -9,27 +9,21 @@ repos:
         exclude_types: [html, markdown, text]
       - id: check-merge-conflict
       - id: detect-private-key
-  - repo: https://github.com/psf/black
-    rev: 23.1.0
-    hooks:
-      - id: black
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.0.285"
+  - repo: local
     hooks:
       - id: ruff
-  - repo: https://github.com/pycqa/pydocstyle
-    rev: 6.3.0
-    hooks:
-      - id: pydocstyle
-        name: pydocstyle
-        entry: pydocstyle
-        language: python
-        types: [python]
-        files: '^openbb_fd/.*\.py$'
-        exclude: 'tests/.*\.py|openbb_fd/test_.*\.py'
-        args: ["--config=pyproject.toml"]
+        name: ruff
+        entry: uv run --locked ruff check
+        language: system
+        types_or: [python, pyi]
+      - id: ty
+        name: ty
+        entry: uv run --locked ty check
+        language: system
+        types_or: [python, pyi]
+        pass_filenames: false
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.4.3
     hooks:
       - id: codespell
         entry: codespell
@@ -40,32 +34,16 @@ repos:
             "--skip=./**/tests/**,./**/test_*.py,.git,*.css,*.csv,*.html,*.ini,*.ipynb,*.js,*.json,*.lock,*.scss,*.txt,*.yaml",
             "-x=.github/workflows/linting.yml"
           ]
-  - repo: local
-    hooks:
-      - id: mypy
-        name: mypy
-        description: ""
-        entry: mypy
-        language: python
-        "types_or": [python, pyi]
-        args: ["--ignore-missing-imports", "--scripts-are-modules"]
-        require_serial: true
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.6.1
+    rev: 0.9.1
     hooks:
       - id: nbstripout
         name: Strip notebooks output
-  - repo: local
-    hooks:
-      - id: pylint
-        name: pylint
-        entry: pylint
-        language: system
-        types: [python]
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0
+    rev: v1.5.0
     hooks:
       - id: detect-secrets
+        exclude: package.lock.json
         args:
           [
             "--baseline",
@@ -73,4 +51,3 @@ repos:
             "--exclude-files",
             "cassettes/.*|record/.*",
           ]
-    exclude: package.lock.json

@@ -7,7 +7,7 @@ from openbb_core.provider.standard_models.crypto_search import (
     CryptoSearchData,
     CryptoSearchQueryParams,
 )
-from pydantic import Field
+from pydantic import AliasChoices, Field
 from ..utils.helpers import get_dataset
 
 
@@ -18,11 +18,14 @@ class FDCryptoSearchQueryParams(CryptoSearchQueryParams):
 class FDCryptoSearchData(CryptoSearchData):
     """FD Crypto Search Data."""
 
-    __alias_dict__ = {"symbol": "cryptocurrency"}
+    symbol: str = Field(
+        description="The cryptocurrency symbol.",
+        validation_alias=AliasChoices("cryptocurrency", "symbol"),
+    )
 
     exchange_symbol: Optional[str] = Field(
         description="The exchange symbol of the cryptocurrency.",
-        alias="symbol",
+        validation_alias=AliasChoices("exchange_symbol", "symbol"),
         default=None,
     )
     currency: Optional[str] = Field(
@@ -75,12 +78,7 @@ class FDCryptoSearchFetcher(
                 | cryptos["exchange"].str.contains(query.query, case=False)
                 | cryptos["market"].str.contains(query.query, case=False)
             ]
-        for col in cryptos:
-            if cryptos[col].dtype in ("int", "float"):
-                cryptos[col] = cryptos[col].fillna(0)
-            elif cryptos[col].dtype == "string":
-                cryptos[col] = cryptos[col].fillna("")
-        return cryptos.to_dict("records")
+        return cryptos.astype(object).where(cryptos.notna(), None).to_dict("records")
 
     @staticmethod
     def transform_data(  # pylint: disable=unused-argument
