@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
@@ -23,7 +23,7 @@ repos:
         types_or: [python, pyi]
         pass_filenames: false
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
+    rev: v2.4.3
     hooks:
       - id: codespell
         entry: codespell
@@ -35,14 +35,15 @@ repos:
             "-x=.github/workflows/linting.yml"
           ]
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.6.1
+    rev: 0.9.1
     hooks:
       - id: nbstripout
         name: Strip notebooks output
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0
+    rev: v1.5.0
     hooks:
       - id: detect-secrets
+        exclude: package.lock.json
         args:
           [
             "--baseline",
@@ -50,4 +51,3 @@ repos:
             "--exclude-files",
             "cassettes/.*|record/.*",
           ]
-    exclude: package.lock.json

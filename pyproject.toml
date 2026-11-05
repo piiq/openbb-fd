@@ -7,8 +7,8 @@ readme = "README.md"
 requires-python = ">=3.12,<4"
 dependencies = [
   "openbb-core>=2.0.1",
-  "pandas>=1.5.3",
-  "pydantic>=2.12.3,<3.0.0",
+  "pandas>=3.1.1",
+  "pydantic>=2.14.3,<3.0.0",
   "requests>=2.34.2",
 ]
 
@@ -17,20 +17,20 @@ fd = "openbb_fd:fd_provider"
 
 [dependency-groups]
 dev = [
-  "hatchling>=1.27",
-  "httpx>=0.28",
+  "hatchling>=1.33.0",
+  "httpx>=0.28.1",
   "openbb-crypto>=2.0.0",
   "openbb-equity>=2.0.0",
   "openbb-etf>=2.0.0",
   "openbb-platform-api>=2.0.1",
-  "pytest>=8.3",
-  "ruff>=0.15",
-  "rumdl>=0.1.76",
-  "ty>=0.0.18",
+  "pytest>=9.2.0",
+  "ruff>=0.17.3",
+  "rumdl>=0.3.2",
+  "ty>=0.0.97",
 ]
 
 [build-system]
-requires = ["hatchling>=1.27"]
+requires = ["hatchling>=1.33.0"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
