@@ -40,4 +40,4 @@ jobs:
         run: uv run ty check
 
       - name: Run rumdl
-        run: uv run rumdl check README.md
+        run: uv run rumdl check --config pyproject.toml README.md

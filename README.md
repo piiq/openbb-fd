@@ -40,7 +40,7 @@ uv run openbb-build
 uv run pytest
 uv run ruff check .
 uv run ty check
-uv run rumdl check README.md
+uv run rumdl check --config pyproject.toml README.md
 ```
 
 The development group installs the equity, ETF, and crypto routers for the generated `obb` interface, plus the Platform API for HTTP integration tests. OpenBB 5 installs these asset routers through its optional `routers` extra; a provider installation alone does not install them.
