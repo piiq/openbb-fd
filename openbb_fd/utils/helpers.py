@@ -43,7 +43,7 @@ def _download_and_save(dataset: _dataset) -> None:
         os.makedirs(LOCAL_FOLDER)
     print(f"Downloading {dataset}...")
     url = GITHUB_ROOT_URL + GITHUB_DATA_FOLDER + f"{dataset}.bz2"
-    data = pd.read_csv(url, compression="bz2", header=0)
+    data = pd.read_csv(url, compression="bz2", header=0, dtype="string")
     data.to_csv(os.path.join(LOCAL_FOLDER, f"{dataset}.csv"), index=False)
     etag = _get_github_etag(dataset)
     if etag:
@@ -60,4 +60,4 @@ def get_dataset(dataset: _dataset) -> pd.DataFrame:
         current_etag = _get_github_etag(dataset)
         if saved_etag != current_etag:
             _download_and_save(dataset)
-    return pd.read_csv(local_path, header=0).convert_dtypes()
+    return pd.read_csv(local_path, header=0, dtype="string")

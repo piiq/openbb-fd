@@ -1,0 +1,66 @@
+name: Publish to PyPI
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.version.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Check the package version across the push
+        id: version
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          python scripts/check_version.py --before "$BEFORE" --after "$GITHUB_SHA" --output "$GITHUB_OUTPUT"
+
+  publish:
+    needs: version
+    if: needs.version.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/openbb-fd
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: "3.12"
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.13.7"
+          enable-cache: true
+
+      - name: Validate and build the release
+        run: |
+          set -euo pipefail
+          uv sync --locked
+          uv run openbb-build
+          uv run pytest
+          uv run ruff check .
+          uv run ty check
+          uv run rumdl check --config pyproject.toml README.md
+          uv build --no-sources
+
+      - name: Publish directly to PyPI
+        run: uv publish --trusted-publishing always
