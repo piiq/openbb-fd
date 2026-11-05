@@ -52,24 +52,6 @@ uv run openbb-api --host 127.0.0.1 --port 8000
 uv run pytest integration
 ```
 
-## Publishing
-
-The `Publish to PyPI` workflow compares `[project].version` before and after each push to `main`. A changed version runs validation, builds the wheel and source distribution, and publishes them directly to PyPI. An unchanged version skips publishing. For pushes with multiple commits, the comparison covers the complete push.
-
-Configure a [PyPI Trusted Publisher](https://docs.pypi.org/trusted-publishers/adding-a-publisher/) for the `openbb-fd` project with these values:
-
-- Owner: `piiq`
-- Repository: `openbb-fd`
-- Workflow filename: `publish.yml`
-- Environment: `pypi`
-
-To release, set a new, unpublished version and update the lockfile before pushing the change to `main`:
-
-```bash
-uv version --bump patch
-uv lock
-```
-
 ## Usage
 
 ```python
